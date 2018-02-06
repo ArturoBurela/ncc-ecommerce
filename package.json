@@ -1,0 +1,24 @@
+{
+  "name": "nnc-ecommerce",
+  "version": "0.1.0",
+  "description": "E-commerce module for apostrophe ",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ArturoBurela/nnc-ecommerce.git"
+  },
+  "keywords": [
+    "e-commerce",
+    "apostrophe",
+    "node"
+  ],
+  "author": "Arturo Burela <“uno@arturoburela.com”>",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ArturoBurela/nnc-ecommerce/issues"
+  },
+  "homepage": "https://github.com/ArturoBurela/nnc-ecommerce#readme"
+}
