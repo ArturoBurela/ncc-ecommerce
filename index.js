@@ -1,5 +1,7 @@
+var extend = require('extend');
+
 module.exports = {
-  label: 'Twitter',
+  label: 'e-Commerce',
   extend: 'apostrophe-widgets',
 
   beforeConstruct: function(self, options) {
@@ -25,11 +27,13 @@ module.exports = {
   },
 
   construct: function(self, options) {
-    if (false){//1!options.consumerKey) {
-      console.error('WARNING: you must configure the consumerKey, consumerSecret, accessToken and accessTokenSecret options to use the Twitter widget.');
-    }
-    self.getSum = function() {
-      return options.num1 + options.num2;
-    };
+    // if (false){//1!options.consumerKey) {
+    //   console.error('WARNING: you must configure the consumerKey, consumerSecret, accessToken and accessTokenSecret options to use the Twitter widget.');
+    // }
+
+    self.getSum = (num1, num2) => num1 + num2;
+
+
+    self.logSelf = () => console.log(JSON.stringify(self));
   }
 };
