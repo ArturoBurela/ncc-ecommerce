@@ -1,7 +1,7 @@
 {
   "name": "ncc-ecommerce",
   "version": "0.1.0",
-  "description": "E-commerce module for apostrophe ",
+  "description": "E-commerce module for apostrophe cms",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -11,10 +11,13 @@
     "url": "git+https://github.com/ArturoBurela/ncc-ecommerce.git"
   },
   "keywords": [
+    "apostrophe",
+    "cms",
     "e-commerce",
-    "apostrophe"
+    "widgets",
+    "notecode"
   ],
-  "author": "Arturo Burela <“uno@arturoburela.com”>",
+  "author": "Note Code Company, Arturo Burela",
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/ArturoBurela/ncc-ecommerce/issues"
