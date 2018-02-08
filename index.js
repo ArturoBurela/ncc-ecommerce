@@ -16,5 +16,11 @@ module.exports = {
 
   construct: function(self, options) {
     // Insert code here
+    self.ok = function() {
+      console.log("OK");
+    }
+  }
+  self.ok2 = function() {
+    console.log("OK");
   }
 };
