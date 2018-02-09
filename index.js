@@ -3,10 +3,10 @@ module.exports = {
   name: 'ncc-ecommerce',
   alias: 'ecommerce',
   label: 'Ecommerce',
-  extend: 'apostrophe-pieces',
+  extend: 'apostrophe-module',
 
   moogBundle: {
-    modules: ['ncc-ecommerce-pages', 'ncc-ecommerce-widgets'],
+    modules: ['ncc-ecommerce-pages', 'ncc-ecommerce-widgets', 'ncc-product'],
     directory: 'lib/modules'
   },
 
