@@ -1,6 +1,18 @@
 {% extends "layout.html" %}
 {% block title %}{{ data.page.title }}{% endblock %}
+{# Link to all the tags, adding a parameter to the query string #}
+<ul class="tag-filters">
+  {% for tag in data.piecesFilters.tags %}
+    <li><a href="{{ data._url | build({ tags: tag.value }) }}">{{ tag.label }}</a></li>
+  {% endfor %}
+</ul>
 
+{# Link to all the subcategoriess, adding a parameter to the query string #}
+<ul class="tag-filters">
+  {% for subcategories in data.piecesFilters.subcategories %}
+    <li><a href="{{ data._url | build({ subcategories: subcategories.value }) }}">{{ subcategories.label }}</a></li>
+  {% endfor %}
+</ul>
 {% block main %}
   {% for piece in data.pieces %}
     <h4><a href="{{ piece._url }}">{{ piece.title }}</a></h4>
