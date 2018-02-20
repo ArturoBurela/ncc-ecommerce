@@ -4,21 +4,20 @@
 #}
 
 {% extends "layout.html" %}
-
+{% block title %}
+  {{ data.title }}
+{% endblock %}
 {% block main %}
   <div class="main-content">
-    <h3>Hello world!
-      {% if data.quantities %}
-        {% for product in data.products %}
+    <h3>Resumen del carrito!</h3>
+      {% if data.cart %}
+        {% for product in data.cart %}
           <div>
-            <h4><a href="{{ product._url }}">{{ product.title }}</a></h4>
-            <p>{{ product.description}}</p>
-            <h5>{{product.price}}</h5>
-            
+            <h4><a href="{{ product._url }}">{{ product.product_data.title }}</a></h4>
+            <p>{{ product.product_id}}</p>
+            <h5>{{product.amount}}</h5>
           </div>
         {% endfor %}
       {% endif %}
-    </h3>
-    <p>This is a very bare bones Apostrophe project. Now, get to work and make a real website!</p>
   </div>
 {% endblock %}
