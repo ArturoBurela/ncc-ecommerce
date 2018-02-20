@@ -6,12 +6,17 @@
 {% extends "layout.html" %}
 
 {% block main %}
-<h1>{{ data.user | json }}</h1>
-<h1>{{ data.perro | json }}</h1>
   <div class="main-content">
     <h3>Hello world!
-      {% if not data.user %}
-        <a class="login-link" href="/login">Login</a>
+      {% if data.quantities %}
+        {% for product in data.products %}
+          <div>
+            <h4><a href="{{ product._url }}">{{ product.title }}</a></h4>
+            <p>{{ product.description}}</p>
+            <h5>{{product.price}}</h5>
+            
+          </div>
+        {% endfor %}
       {% endif %}
     </h3>
     <p>This is a very bare bones Apostrophe project. Now, get to work and make a real website!</p>
