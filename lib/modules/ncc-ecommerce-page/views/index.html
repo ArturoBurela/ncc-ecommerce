@@ -26,8 +26,8 @@ that lives in the top-level views/ folder for convenience
     <h5>{{product.product_data.price}}</h5>
     <h4>Descuento</h4>
     <h5>{{product.product_data.discount}}</h5>
-    <h4>Total</h4>
-    {{(product.product_data.price-product.product_data.discount)*product.amount}}
+    <h4>SubTotal</h4>
+    {{product.product_data.total*product.amount | round(2)}}
   </div>
   {% endfor %}
   {% endif %}
@@ -61,41 +61,42 @@ function Paypal(cart) {
     commit: true, // Show a 'Pay Now' button
 
     payment: function(data, actions) {
-      let total = 0;
+      let total = 0.00;
       let items = [];
-      console.log(JSON.stringify(cart));
+      let price = 0;
       for (var p of cart) {
-        console.log(p);
-        total += (p.product_data.price*((100-p.product_data.discount)/100)*p.amount);
+        total += p.product_data.total * p.amount;
         items.push({
           name: p.product_data.title,
           description: 'p.product_data.description',
           quantity: p.amount,
-          price: Number((p.product_data.price*((100-p.product_data.discount)/100)).toFixed(2)),
+          price: p.product_data.total,
           currency: "MXN"
         });
       }
-      total = Number((total).toFixed(2));
-      return actions.payment.create({
-        payment: {
-          "intent": "sale",
-          "payer": {
-            "payment_method": "paypal"
-          },
-          "transactions": [
-            {
-              "amount": {
-                "total": total,
-                "currency": "MXN"
-              },
-              "soft_descriptor": "ECHI5786786",
-              "item_list": {
-                "items": items,
-              }
+      let pay = {
+        "intent": "sale",
+        "payer": {
+          "payment_method": "paypal"
+        },
+        "transactions": [
+          {
+            "amount": {
+              "total": total,
+              "currency": "MXN"
+            },
+            "soft_descriptor": "ECHI5786786",
+            "item_list": {
+              "items": items,
             }
-          ],
-          "note_to_payer": "Stop botherinsfasjdkfnslaf"
-        }
+          }
+        ],
+        "note_to_payer": "Stop botherinsfasjdkfnslaf"
+      };
+      console.log(JSON.stringify(pay));
+      total = total.toString();
+      return actions.payment.create({
+        payment: pay
       });
     },
 
