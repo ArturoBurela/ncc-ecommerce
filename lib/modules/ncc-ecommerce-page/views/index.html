@@ -1,23 +1,113 @@
 {#
-  This is an example home page template. It inherits and extends a layout template
-  that lives in the top-level views/ folder for convenience
+This is an example home page template. It inherits and extends a layout template
+that lives in the top-level views/ folder for convenience
 #}
 
 {% extends "layout.html" %}
 {% block title %}
-  {{ data.title }}
+{{ data.title }}
+{% endblock %}
+{% block extraHead %}
+<script src="https://www.paypalobjects.com/api/checkout.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 {% endblock %}
 {% block main %}
-  <div class="main-content">
-    <h3>Resumen del carrito!</h3>
-      {% if data.cart %}
-        {% for product in data.cart %}
-          <div>
-            <h4><a href="{{ product._url }}">{{ product.product_data.title }}</a></h4>
-            <p>{{ product.product_id}}</p>
-            <h5>{{product.amount}}</h5>
-          </div>
-        {% endfor %}
-      {% endif %}
+<div class="main-content">
+  <h3>Resumen del carrito!</h3>
+  {% if data.cart %}
+  {% for product in data.cart %}
+  <div>
+    <h4><a href="{{ product._url }}">{{ product.product_data.title }}</a></h4>
+    <h4>Product ID</h4>
+    <p>{{ product.product_id}}</p>
+    <h4>Cantidad a comprar</h4>
+    <h5>{{product.amount}}</h5>
+    <h4>Precio</h4>
+    <h5>{{product.product_data.price}}</h5>
+    <h4>Descuento</h4>
+    <h5>{{product.product_data.discount}}</h5>
+    <h4>Total</h4>
+    {{(product.product_data.price-product.product_data.discount)*product.amount}}
   </div>
+  {% endfor %}
+  {% endif %}
+  <div id="paypal-button">
+
+  </div>
+</div>
+{% endblock %}
+{% block afterMain %}
+<script>
+
+$(document).ready(function () {
+  GetCart(Paypal);
+});
+function GetCart(cb) {
+  $.get("/getcart", function(data, status){
+    let cart = data;
+    cb(cart);
+  });
+}
+function Paypal(cart) {
+  paypal.Button.render({
+
+    env: 'sandbox', // Or 'sandbox'
+
+    client: {
+      sandbox:    'AYIjDNRbj0y5HL-aw3qLZ17TtXI8we_Z3GLMfmpKZNpn9VEnUJV9Jh8cl5xBlDiyQQjH7rCF16J2ZVt8',
+      production: 'ASwyz5WhY5VFmBqBhCujRHQ3CFws0nZ5xAWvnGVAH7JLj4vEcflNDb2A0XLdgq3bTGVS0CM81meT20TG'
+    },
+
+    commit: true, // Show a 'Pay Now' button
+
+    payment: function(data, actions) {
+      let total = 0;
+      let items = [];
+      console.log(JSON.stringify(cart));
+      for (var p of cart) {
+        console.log(p);
+        total += (p.product_data.price*((100-p.product_data.discount)/100)*p.amount);
+        items.push({
+          name: p.product_data.title,
+          description: 'p.product_data.description',
+          quantity: p.amount,
+          price: Number((p.product_data.price*((100-p.product_data.discount)/100)).toFixed(2)),
+          currency: "MXN"
+        });
+      }
+      total = Number((total).toFixed(2));
+      return actions.payment.create({
+        payment: {
+          "intent": "sale",
+          "payer": {
+            "payment_method": "paypal"
+          },
+          "transactions": [
+            {
+              "amount": {
+                "total": total,
+                "currency": "MXN"
+              },
+              "soft_descriptor": "ECHI5786786",
+              "item_list": {
+                "items": items,
+              }
+            }
+          ],
+          "note_to_payer": "Stop botherinsfasjdkfnslaf"
+        }
+      });
+    },
+
+    onAuthorize: function(data, actions) {
+      return actions.payment.execute().then(function(payment) {
+        console.log(JSON.stringify(payment));
+        // The payment is complete!
+        // You can now show a confirmation message to the customer
+      });
+    }
+
+  }, '#paypal-button');
+}
+</script>
 {% endblock %}
