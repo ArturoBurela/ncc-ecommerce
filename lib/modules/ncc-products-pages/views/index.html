@@ -1,10 +1,6 @@
 {% extends "layout.html" %}
 {% block title %}{{ data.page.title }}{% endblock %}
-<ul class="tag-filters">
-  {% for tag in data.piecesFilters.tags %}
-    <li><a href="{{ data.page._url | build({ tags: tag.value }) }}">{{ tag.label }}</a></li>
-  {% endfor %}
-</ul>
+
 {% block main %}
   {% for piece in data.pieces %}
     <h4><a href="{{ piece._url }}">{{ piece.title }}</a></h4>
