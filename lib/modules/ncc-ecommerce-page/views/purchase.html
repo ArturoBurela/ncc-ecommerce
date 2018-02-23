@@ -4,7 +4,7 @@
 {% endblock %}
 {% block main %}
 <div class="main-content">
-  <h3>Resumen del carrito!</h3>
+  <h3>Purchase Confirmed!</h3>
   {% if data.cart %}
   {% for product in data.cart %}
   <div>
@@ -22,11 +22,5 @@
   </div>
   {% endfor %}
   {% endif %}
-  <div id="paypal-button">
-
-  </div>
 </div>
-{% endblock %}
-{% block extraBody %}
-<script src="https://www.paypalobjects.com/api/checkout.js"></script>
 {% endblock %}
