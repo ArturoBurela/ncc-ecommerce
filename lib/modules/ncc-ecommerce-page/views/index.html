@@ -8,7 +8,7 @@
   {% if data.cart %}
   {% for product in data.cart %}
   <div>
-    <h4><a href="{{ product._url }}">{{ product.product_data.title }}</a></h4>
+    <h4><a href="{{ product.product_data._url }}">{{ product.product_data.title }}</a></h4>
     <h4>Product ID</h4>
     <p>{{ product.product_id}}</p>
     <h4>Cantidad a comprar</h4>
@@ -19,6 +19,7 @@
     <h5>{{product.product_data.discount}}</h5>
     <h4>SubTotal</h4>
     {{product.product_data.total*product.amount | round(2)}}
+    <button id="cart" type="button" name="button"> Add to cart</button>
   </div>
   {% endfor %}
   {% endif %}
