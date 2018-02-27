@@ -4,7 +4,7 @@
 {% endblock %}
 {% block main %}
 <div class="main-content">
-  <h3>Resumen del carrito!</h3>
+  <h3>CART PRODUCTS!</h3>
   {% if data.cart %}
   {% for product in data.cart %}
   <div>
@@ -19,7 +19,7 @@
     <h5>{{product.product_data.discount}}</h5>
     <h4>SubTotal</h4>
     {{product.product_data.total*product.amount | round(2)}}
-    <button id="cart" type="button" name="button"> Add to cart</button>
+    <button id="cart" type="button" name="button">Remove</button>
   </div>
   {% endfor %}
   {% endif %}
