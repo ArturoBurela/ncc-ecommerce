@@ -19,7 +19,7 @@
     <h5>{{product.product_data.discount}}</h5>
     <h4>SubTotal</h4>
     {{product.product_data.total*product.amount | round(2)}}
-    <button id="delete" type="button" name="button" product="{{data.piece._id}}">Remove</button>
+    <button id="delete" type="button" name="button" product="{{product.product_id}}">Remove</button>
   </div>
   {% endfor %}
   {% endif %}
