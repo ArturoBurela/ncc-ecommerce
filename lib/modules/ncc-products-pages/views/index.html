@@ -2,10 +2,17 @@
 {% block title %}{{ data.page.title }}{% endblock %}
 
 {% block main %}
-{# Link to all the tags, adding a parameter to the query string #}
+{{data.piecesFilters | dump}}
 <ul class="tag-filters">
   {% for tag in data.piecesFilters.tags %}
-    <li><a href="{{ data._url | build({ tags: tag.value }) }}">{{ tag.label }}</a></li>
+  {# HACK to avoid a possible bug #}
+    <li><a href="{{ data._url}}?tags={{tag.value}}">{{ tag.label }}</a></li>
+  {% endfor %}
+</ul>
+<ul class="tag-filters">
+  {% for tag in data.piecesFilters.ncc-subcategories %}
+  {# HACK to avoid a possible bug #}
+    <li><a href="{{ data._url}}?tags={{tag.value}}">{{ tag.label }}</a></li>
   {% endfor %}
 </ul>
   {% for piece in data.pieces %}
