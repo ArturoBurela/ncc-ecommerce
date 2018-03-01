@@ -22,10 +22,13 @@
     <button id="delete" type="button" name="button" product="{{product.product_id}}">Remove</button>
   </div>
   {% endfor %}
-  {% endif %}
   <div id="paypal-button">
 
   </div>
+  {% endif %}
+  {% if not data.cart %}
+  <p>Cart is empty</p>
+  {% endif %}
 </div>
 {% endblock %}
 {% block extraBody %}
