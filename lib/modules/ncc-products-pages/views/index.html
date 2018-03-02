@@ -10,9 +10,9 @@
   {% endfor %}
 </ul>
 <ul class="tag-filters">
-  {% for tag in data.piecesFilters.ncc-subcategories %}
+  {% for sub in data.piecesFilters.nccsubcategories %}
   {# HACK to avoid a possible bug #}
-    <li><a href="{{ data._url}}?tags={{tag.value}}">{{ tag.label }}</a></li>
+    <li><a href="{{ data._url}}?nccsubcategories={{sub.value}}">{{ sub.label }}</a></li>
   {% endfor %}
 </ul>
   {% for piece in data.pieces %}
