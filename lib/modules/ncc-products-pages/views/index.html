@@ -2,23 +2,54 @@
 {% block title %}{{ data.page.title }}{% endblock %}
 
 {% block main %}
-{{data.piecesFilters | dump}}
-<ul class="tag-filters">
-  {% for tag in data.piecesFilters.tags %}
-  {# HACK to avoid a possible bug #}
+<div class="container" style="text-align:center">
+  <a href="{{data.page._url}}" class="current">Reset</a>
+  <h3>Filtro etiquetas</h3>
+  <ul class="tag-filters">
+    {% for tag in data.piecesFilters.tags %}
+    {# HACK to avoid a possible bug #}
     <li><a href="{{ data._url}}?tags={{tag.value}}">{{ tag.label }}</a></li>
-  {% endfor %}
-</ul>
-<ul class="tag-filters">
-  {% for sub in data.piecesFilters.nccsubcategories %}
-  {# HACK to avoid a possible bug #}
-    <li><a href="{{ data._url}}?nccsubcategories={{sub.value}}">{{ sub.label }}</a></li>
-  {% endfor %}
-</ul>
-  {% for piece in data.pieces %}
-    <h4><a href="{{ piece._url }}">{{ piece.title }}</a></h4>
-    <h5>{{piece.total}}</h5>
-  {% endfor %}
-  {% import 'apostrophe-pager:macros.html' as pager with context %}
-  {{ pager.render({ page: data.currentPage, total: data.totalPages }, data.url) }}
+    {% endfor %}
+  </ul>
+  <h3>Filtro subcategorías</h3>
+  <ul class="tag-filters">
+    {% for sub in data.piecesFilters.nccsubcategories %}
+    {# HACK to avoid a possible bug #}
+    <li><a href="{{data._url}}?nccsubcategories={{sub.value}}" class="{{ 'current' if data.query.nccsubcategories == sub.value }}">{{ sub.label }}</a></li>
+    {% endfor %}
+  </ul>
+  <h2>Productos</h2>
+  <div class="row">
+    {% for piece in data.pieces %}
+    <div class="col-lg-4 col-md-6 mb-4">
+      <div class="card h-100">
+        <a href="#"><img class="card-img-top" src="http://placehold.it/700x400" alt=""></a>
+        <div class="card-body">
+          <h4 class="card-title">
+            <a href="{{ piece._url }}">{{ piece.title }}</a>
+          </h4>
+          <h5><del class="badge badge-danger">${{piece.price}}</del>${{piece.total}}</h5>
+          <p class="card-text">
+            {{
+              apos.area(
+                piece,
+                'description',
+                'apostrophe-rich-text',
+                {
+                }
+              )
+            }}
+          </p>
+        </div>
+        <div class="card-footer">
+          <small class="text-muted">{{piece.brand}}</small>
+        </div>
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+  <!-- /.row -->
+</div>
+{% import 'apostrophe-pager:macros.html' as pager with context %}
+{{ pager.render({ page: data.currentPage, total: data.totalPages }, data.url) }}
 {% endblock %}
