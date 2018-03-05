@@ -19,26 +19,28 @@
                   )
                 }}
               </p>
+              <select id="quantity">
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+                <option value="5">5</option>
+                <option value="6">6</option>
+                <option value="7">7</option>
+                <option value="8">8</option>
+                <option value="9">9</option>
+                <option value="10">10+</option>
+              </select>
+              <button id="cart" type="button" name="button" class="btn btn-success" product="{{data.piece._id}}"> Add to cart</button>
+              <br>
               <span class="text-warning">{{data.piece.brand}}</span>
               4.0 stars
               <div>
+                <br>
                 <nav>
-                  <a type="button" name="button" href="/cart"> Cart </a>
-                  <a type="button" name="button" href="/catalog"> Back to catalog </a>
+                  <a type="button" name="button" href="/cart" class="btn btn-info"> Cart </a>
+                  <a type="button" name="button" href="/catalog" class="btn btn-info"> Back to catalog </a>
                 </nav>
-                <select id="quantity">
-                  <option value="1">1</option>
-                  <option value="2">2</option>
-                  <option value="3">3</option>
-                  <option value="4">4</option>
-                  <option value="5">5</option>
-                  <option value="6">6</option>
-                  <option value="7">7</option>
-                  <option value="8">8</option>
-                  <option value="9">9</option>
-                  <option value="10">10+</option>
-                </select>
-                <button id="cart" type="button" name="button" class="btn btn-success" product="{{data.piece._id}}"> Add to cart</button>
               </div>
             </div>
           </div>

@@ -1,12 +1,12 @@
 <div class="row">
-  <a href="{{data.page._url}}" class="current">Reset</a>
+  <a href="{{data.page._url}}" class="current" class="btn btn-info">Reset</a>
 </div>
 <div class="row">
   <h3>Filtro etiquetas</h3>
   <ul class="tag-filters">
     {% for tag in data.piecesFilters.tags %}
     {# HACK to avoid a possible bug #}
-    <li><a href="{{ data._url}}?tags={{tag.value}}">{{ tag.label }}</a></li>
+    <li><a href="{{ data._url}}?tags={{tag.value}}" class="btn btn-info">{{ tag.label }}</a></li>
     {% endfor %}
   </ul>
 </div>
@@ -15,7 +15,7 @@
   <ul class="tag-filters">
     {% for sub in data.piecesFilters.nccsubcategories %}
     {# HACK to avoid a possible bug #}
-    <li><a href="{{data._url}}?nccsubcategories={{sub.value}}" class="{{ 'current' if data.query.nccsubcategories == sub.value }}">{{ sub.label }}</a></li>
+    <li><a href="{{data._url}}?nccsubcategories={{sub.value}}" class="{{ 'btn btn-success' if data.query.nccsubcategories == sub.value }}">{{ sub.label }}</a></li>
     {% endfor %}
   </ul>
 </div>
