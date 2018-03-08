@@ -1,6 +1,6 @@
 {
   "name": "ncc-ecommerce",
-  "version": "0.1.5",
+  "version": "0.1.6",
   "description": "E-commerce module for apostrophe cms",
   "main": "index.js",
   "scripts": {
