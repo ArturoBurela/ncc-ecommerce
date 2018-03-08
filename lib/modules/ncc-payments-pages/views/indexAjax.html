@@ -1,0 +1,21 @@
+<div class="row">
+  <h2>Payments</h2>
+</div>
+<div class="row">
+  {% for piece in data.pieces %}
+  <div class="col-lg-4 col-md-6 mb-4">
+    <div class="card h-100">
+      <a href="#"><img class="card-img-top" src="http://placehold.it/700x400" alt=""></a>
+      <div class="card-body">
+        <h4 class="card-title">
+          <a href="{{ piece._url }}">{{ piece.title }}</a>
+        </h4>
+        <h5>Method: {{piece.method}}</h5>
+        <h5>Amount: {{piece.amount}}</h5>
+        <h5>Folio: {{piece.folio}}</h5>
+        <h5>Purchased products: {{piece._products | dump}}</h5>
+      </div>
+    </div>
+  </div>
+  {% endfor %}
+</div>

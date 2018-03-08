@@ -1,0 +1,65 @@
+{% extends "layout.html" %}
+{% block title %}{{ data.piece.title }}{% endblock %}
+
+{% block main %}
+<div class="container">
+  <div class="card mt-4">
+            <img class="card-img-top img-fluid" src="http://placehold.it/900x400" alt="">
+            <div class="card-body">
+              <h3 class="card-title">{{ data.piece.title }}</h3>
+              <h4><del class="badge badge-danger">${{data.piece.price}}</del>${{data.piece.total}}</h4>
+              <p class="card-text">
+                {{
+                  apos.area(
+                    data.piece,
+                    'description',
+                    'apostrophe-rich-text',
+                    {
+                    }
+                  )
+                }}
+              </p>
+              <select id="quantity">
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+                <option value="5">5</option>
+                <option value="6">6</option>
+                <option value="7">7</option>
+                <option value="8">8</option>
+                <option value="9">9</option>
+                <option value="10">10+</option>
+              </select>
+              <button id="cart" type="button" name="button" class="btn btn-success" product="{{data.piece._id}}"> Add to cart</button>
+              <br>
+              <span class="text-warning">{{data.piece.brand}}</span>
+              4.0 stars
+              <div>
+                <br>
+                <nav>
+                  <a type="button" name="button" href="/cart" class="btn btn-info"> Cart </a>
+                  <a type="button" name="button" href="/catalog" class="btn btn-info"> Back to catalog </a>
+                </nav>
+              </div>
+            </div>
+          </div>
+          <!-- /.card -->
+          <div class="card card-outline-secondary my-4">
+            <div class="card-header">
+              Product Reviews
+            </div>
+            <div class="card-body">
+              <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Omnis et enim aperiam inventore, similique necessitatibus neque non! Doloribus, modi sapiente laboriosam aperiam fugiat laborum. Sequi mollitia, necessitatibus quae sint natus.</p>
+              <small class="text-muted">Posted by Anonymous on 3/1/17</small>
+              <hr>
+              <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Omnis et enim aperiam inventore, similique necessitatibus neque non! Doloribus, modi sapiente laboriosam aperiam fugiat laborum. Sequi mollitia, necessitatibus quae sint natus.</p>
+              <small class="text-muted">Posted by Anonymous on 3/1/17</small>
+              <hr>
+              <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Omnis et enim aperiam inventore, similique necessitatibus neque non! Doloribus, modi sapiente laboriosam aperiam fugiat laborum. Sequi mollitia, necessitatibus quae sint natus.</p>
+              <small class="text-muted">Posted by Anonymous on 3/1/17</small>
+            </div>
+          </div>
+<!-- /.card -->
+</div>
+{% endblock %}
