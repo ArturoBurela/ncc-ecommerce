@@ -1,14 +1,16 @@
 <div class="row">
-  <h2>Payments</h2>
+  <h2>Mis pedidos</h2>
 </div>
-<div class="row">
+<div class="row text-justified">
   {% for piece in data.pieces %}
-  <div class="col-lg-4 col-md-6 mb-4">
+  <div class="col">
     <div class="card h-100">
-      <a href="#"><img class="card-img-top" src="http://placehold.it/700x400" alt=""></a>
+      <div class="card-header">
+        {{ piece.createdAt | date}}
+      </div>
       <div class="card-body">
         <h4 class="card-title">
-          <a href="{{ piece._url }}">{{ piece.title }}</a>
+          <a href="{{ piece._url }}">{{ piece.createdAt }}</a>
         </h4>
         <h5>Method: {{piece.method}}</h5>
         <h5>Amount: {{piece.amount}}</h5>
