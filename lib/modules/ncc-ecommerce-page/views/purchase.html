@@ -3,7 +3,14 @@
 {{ data.title }}
 {% endblock %}
 {% block main %}
-<div class="main-content">
-  <h3>Purchase Confirmed!</h3>
+<div class="container" data-apos-ajax-context="cart">
+  <div class="row">
+    <h2>Carrito de compras</h2>
+  </div>
+  <div class="row text-justified" id="cart-products">
+    <div class="col-12">
+      <h1>Compra confirmada!</h1>
+    </div>
+  </div>
 </div>
 {% endblock %}
