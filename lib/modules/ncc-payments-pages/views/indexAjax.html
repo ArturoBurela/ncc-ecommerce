@@ -5,8 +5,15 @@
   {% for piece in data.pieces %}
   <div class="col">
     <div class="card h-100">
-      <div class="card-header">
-        {{ piece.createdAt | date}}
+      <div class="card-header text-left">
+        <div class="row">
+          <div class="col">
+            Pedido número {{ piece.folio}}
+          </div>
+          <div class="col text-rigth">
+            {{ piece.createdAt | date("DD/MM/YYYY") }}
+          </div>
+        </div>
       </div>
       <div class="card-body">
         <h4 class="card-title">
