@@ -1,6 +1,9 @@
 {
   "name": "ncc-ecommerce",
-  "version": "0.1.6",
+  "version": "0.1.7",
+  "dependencies": {
+    "nunjucks-date-filter": "^0.1.1"
+  },
   "description": "E-commerce module for apostrophe cms",
   "main": "index.js",
   "scripts": {
