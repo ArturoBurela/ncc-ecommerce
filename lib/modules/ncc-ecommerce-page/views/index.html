@@ -3,32 +3,59 @@
 {{ data.title }}
 {% endblock %}
 {% block main %}
-<div class="main-content" id="cart-products">
-  <h3>CART PRODUCTS!</h3>
-  {% if data.cart %}
-  {% for product in data.cart %}
-  <div>
-    <h4><a href="{{ product.product_data._url }}">{{ product.product_data.title }}</a></h4>
-    <h4>Product ID</h4>
-    <p>{{ product.product_id}}</p>
-    <h4>Cantidad a comprar</h4>
-    <h5>{{product.amount}}</h5>
-    <h4>Precio</h4>
-    <h5>{{product.product_data.price}}</h5>
-    <h4>Descuento</h4>
-    <h5>{{product.product_data.discount}}</h5>
-    <h4>SubTotal</h4>
-    {{product.product_data.total*product.amount | round(2)}}
-    <button id="delete" type="button" name="button" product="{{product.product_id}}">Remove</button>
+<div class="container" data-apos-ajax-context="cart">
+  <div class="row">
+    <h2>Carrito de compras</h2>
   </div>
-  {% endfor %}
-  <div id="paypal-button">
-
+  <div class="row text-justified" id="cart-products">
+    <div class="col-12">
+      <div class="card h-100">
+        <div class="card-header text-left">
+          <div class="row">
+            <div class="col">
+              Actualmente en el carrito
+            </div>
+            <div class="col text-right">
+              {{ piece.createdAt | date("DD/MM/YYYY") }}
+            </div>
+          </div>
+        </div>
+        <div class="card-body text-left">
+          <div class="row">
+            <div class="col-8">
+              <ul class="list-group list-group-flush">
+                {% if not data.cart %}
+                <p>Cart is empty</p>
+                {% endif %}
+                {% for p in data.cart %}
+                <li class="list-group-item">
+                  <h4><a href="{{ p.product_data._url }}">{{ p.product_data.title }}</a></h4>
+                  <ul class="list-group">
+                    <li class="list-group-item">Cantidad: <span>{{p.amount}}</span></li>
+                    <li class="list-group-item">Precio: <span>{{p.product_data.price}}</span></li>
+                    <li class="list-group-item">Descuento: <span>{{p.product_data.discount}}</span></li>
+                    <li class="list-group-item">SubTotal: <span>{{p.product_data.total*p.amount | round(2)}}</span></li>
+                  </ul>
+                  <button id="delete" class="btn btn-info" type="button" name="button" product="{{p.product_data._id}}">Remove</button>
+                </li>
+                {% endfor %}
+              </ul>
+            </div>
+            <div class="col-4">
+              <ul class="list-group">
+                <li class="list-group-item alert alert-info">Descuentos: ${{data.pay.discount}}</li>
+                <li class="list-group-item alert alert-info">Total a pagar: ${{data.pay.total}}</li>
+                <li class="list-group-item alert alert-info">
+                  <div id="paypal-button">
+                  </div>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
-  {% endif %}
-  {% if not data.cart %}
-  <p>Cart is empty</p>
-  {% endif %}
 </div>
 {% endblock %}
 {% block extraBody %}
