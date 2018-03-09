@@ -18,19 +18,23 @@
       <div class="card-body text-left">
         <div class="row">
           <div class="col-8">
-            {% for p in piece._products %}
-            <h5>{{p.title}}</h5>
-            <p>{{p.brand}}</p>
-            {% endfor %}
+            <ul class="list-group list-group-flush">
+              {% for p in piece._products %}
+              <li class="list-group-item">
+                <h5>{{p.title}}</h5>
+                <p>{{p.price}}</p>
+                <p>{{p.total}}</p>
+              </li>
+              {% endfor %}
+            </ul>
           </div>
           <div class="col-4">
             <ul class="list-group">
               <li class="list-group-item alert alert-info">Método de pago: {{piece.method}}</li>
-              <li class="list-group-item alert alert-info">Total: {{piece.amount}}</li>
+              <li class="list-group-item alert alert-info">Total: ${{piece.amount}}</li>
             </ul>
           </div>
         </div>
-        <h5>Purchased products: {{piece._products | dump}}</h5>
       </div>
     </div>
   </div>
