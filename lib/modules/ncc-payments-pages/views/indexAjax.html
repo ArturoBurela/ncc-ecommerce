@@ -2,6 +2,9 @@
   <h2>Mis pedidos</h2>
 </div>
 <div class="row text-justified">
+  {% if not data.pieces | length %}
+  <p>Aún no has realizado ningún pedido</p>
+  {% endif %}
   {% for piece in data.pieces %}
   <div class="col-12">
     <div class="card h-100">
