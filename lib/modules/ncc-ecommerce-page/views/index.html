@@ -46,8 +46,7 @@
                 <li class="list-group-item alert alert-info">Descuentos: ${{data.pay.discount}}</li>
                 <li class="list-group-item alert alert-info">Total a pagar: ${{data.pay.total}}</li>
                 <li class="list-group-item alert alert-info">
-                  <div id="paypal-button">
-                  </div>
+                  <a href="/purchase-paypal" class="btn btn-primary">Pagar con Paypal</a>
                 </li>
               </ul>
             </div>
@@ -57,7 +56,4 @@
     </div>
   </div>
 </div>
-{% endblock %}
-{% block extraBody %}
-<script src="https://www.paypalobjects.com/api/checkout.js"></script>
 {% endblock %}
