@@ -1,0 +1,53 @@
+{% extends "layout.html" %}
+{% block title %}
+{{ data.title }}
+{% endblock %}
+{% block main %}
+<div class="container">
+  <div class="row">
+    <h2>Mis pedidos</h2>
+  </div>
+  <div class="row text-justified">
+    {% if not data.payments | length %}
+    <p>Aún no has realizado ningún pedido</p>
+    {% endif %}
+    {% for p in data.payments %}
+    <div class="col-12">
+      <div class="card h-100">
+        <div class="card-header text-left">
+          <div class="row">
+            <div class="col">
+              Pedido número {{ p.folio}}
+            </div>
+            <div class="col text-right">
+              {{ p.createdAt | date("DD/MM/YYYY") }}
+            </div>
+          </div>
+        </div>
+        <div class="card-body text-left">
+          <div class="row">
+            <div class="col-8">
+              <ul class="list-group list-group-flush">
+                {% for p in p._products %}
+                <li class="list-group-item">
+                  <h5>{{p.title}}</h5>
+                  <p>{{p.price}}</p>
+                  <p>{{p.total}}</p>
+                </li>
+                {% endfor %}
+              </ul>
+            </div>
+            <div class="col-4">
+              <ul class="list-group">
+                <li class="list-group-item alert alert-info">Método de pago: {{p.method}}</li>
+                <li class="list-group-item alert alert-info">Total: ${{p.amount}}</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+</div>
+{% endblock %}

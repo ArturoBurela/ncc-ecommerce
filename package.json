@@ -1,6 +1,6 @@
 {
   "name": "ncc-ecommerce",
-  "version": "0.1.11",
+  "version": "0.1.12",
   "dependencies": {
     "nunjucks-date-filter": "^0.1.1"
   },
