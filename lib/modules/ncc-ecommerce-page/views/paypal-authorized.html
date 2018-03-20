@@ -9,10 +9,46 @@
   </div>
   <div class="row text-justified" id="cart-products">
     <div class="col-12">
-      <h1>Ha autorizado su pago con paypal!</h1>
-      <h2>Todavía no se realiza ningún cargo, poor favor revisa bien los detalles y confirma la compra a continuación.</h2>
-      <a href="/paypal-confirm" class="btn btn-primary">Confirmar compra</a>
-      <a href="/paypal-cancel" class="btn btn-danger">Cancelar</a>
+      <div class="card h-100">
+        <div class="card-header text-left">
+          <div class="row">
+            <div class="col">
+              Actualmente en el carrito
+            </div>
+            <div class="col text-right">
+              {{ piece.createdAt | date("DD/MM/YYYY") }}
+            </div>
+          </div>
+        </div>
+        <div class="card-body text-left">
+          <div class="row">
+            <div class="col-8">
+              <ul class="list-group list-group-flush">
+                {% if not data.cart %}
+                <p>Cart is empty</p>
+                {% endif %}
+                {% for p in data.cart %}
+                <li class="list-group-item">
+                  <h4><a href="{{ p.product_data._url }}">{{ p.product_data.title }}</a></h4>
+                  <ul class="list-group">
+                    <li class="list-group-item">Cantidad: <span>{{p.amount}}</span></li>
+                    <li class="list-group-item">Precio: <span>{{p.product_data.price}}</span></li>
+                    <li class="list-group-item">Descuento: <span>{{p.product_data.discount}}</span></li>
+                    <li class="list-group-item">SubTotal: <span>{{p.product_data.total*p.amount | round(2)}}</span></li>
+                  </ul>
+                </li>
+                {% endfor %}
+              </ul>
+            </div>
+            <div class="col-4">
+              <h3>Ha autorizado su pago con paypal!</h3>
+              <p>Todavía no se realiza ningún cargo, poor favor revisa bien los detalles y confirma la compra a continuación.</h2>
+              <a href="/paypal-confirm" class="btn btn-primary">Confirmar compra</a>
+              <a href="/cart" class="btn btn-danger">Cancelar</a>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 </div>
