@@ -27,11 +27,11 @@
     </nav>
     <div id="body-template">
       <div class="row pl-5">
-        <h2>Mis pedidos</h2>
+        <h2>{{ __('NCE_PAYMENTS') }}</h2>
       </div>
       <div class="row text-justified pl-5">
         {% if not data.payments | length %}
-        <p>Aún no has realizado ningún pedido</p>
+        <p>{{ __('NCE_NO_PAYMENTS') }}</p>
         {% endif %}
         {% for p in data.payments %}
         <div class="col-12">
@@ -39,7 +39,7 @@
             <div class="card-header text-left">
               <div class="row">
                 <div class="col">
-                  Pedido número {{ p.folio}}
+                  {{ __('NCE_PAYMENT_NUMBER') }} {{ p.folio}}
                 </div>
                 <div class="col text-right">
                   {{ p.createdAt | date("DD/MM/YYYY") }}
@@ -61,8 +61,8 @@
                 </div>
                 <div class="col-4">
                   <ul class="list-group">
-                    <li class="list-group-item alert alert-info">Método de pago: {{p.method}}</li>
-                    <li class="list-group-item alert alert-info">Total: ${{p.amount}}</li>
+                    <li class="list-group-item alert alert-info">{{ __('NCE_PAYMENT_METHOD') }}: {{p.method}}</li>
+                    <li class="list-group-item alert alert-info">{{ __('NCE_TOTAL') }}: ${{p.amount}}</li>
                   </ul>
                 </div>
               </div>
