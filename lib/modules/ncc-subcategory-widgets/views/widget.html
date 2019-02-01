@@ -1,0 +1,5 @@
+{% for piece in data.widget._pieces %}
+  <h4>
+    {{ piece._category.title }} - <a href="/products?nccsubcategories={{ piece.slug }}">{{ piece.title }} </a>
+  </h4>
+{% endfor %}

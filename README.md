@@ -27,15 +27,40 @@ Declare and configure modules
 // We must declare the bundle!
 bundles: [ 'ncc-ecommerce' ],
 modules: {
+  // Other modules
+  // .....
+
+  'apostrophe-admin-bar': {
+    addGroups: [
+      {
+        label: 'Products',
+        items: [
+          'ncc-category',
+          'ncc-subcategory',
+          'ncc-product',
+        ]
+      }
+    ]
+  },
   'ncc-ecommerce': {},
-  'ncc-ecommerce-pages': {},
-  'ncc-ecommerce-widgets': {},
+  'ncc-category': {},
+  'ncc-subcategory': {},
+  'ncc-subcategory-widgets': {},
+  'ncc-product': {},
+  'ncc-products-pages': {},
+  'ncc-ecommerce-page': {},
+  'ncc-cart': {},
+//  'ncc-paypal': {},
+  'ncc-payment': {},
+  'ncc-product-payment': {},
+  'ncc-payments-pages': {},
+//  'ncc-ecommerce-widgets': {},
   'apostrophe-pages': {
     // We must list `ncc-ecommerce-page` as one of the available page types
     types: [
       {
-        name: 'ncc-ecommerce-page',
-        label: 'Blog'
+        name: 'ncc-products-pages',
+        label: 'Product'
       },
       {
         name: 'default',
@@ -47,7 +72,19 @@ modules: {
       }
     ]
   }
+
 }
+```
+
+### Add subcategory menu widget
+```
+// in layout.html, or where you want
+  {# Ecommerce subcategory menu #}
+  {{ apos.area(data.page, 'category', {
+    widgets: {
+      'ncc-subcategory': {}
+    }
+  }) }}
 ```
 
 ## Contributing
