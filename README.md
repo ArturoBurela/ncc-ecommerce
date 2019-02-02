@@ -78,7 +78,7 @@ modules: {
 
 ### Add subcategory menu widget
 ```
-// in layout.html, or where you want
+// in home.html, or where you want
   {# Ecommerce subcategory menu #}
   {{ apos.area(data.page, 'category', {
     widgets: {

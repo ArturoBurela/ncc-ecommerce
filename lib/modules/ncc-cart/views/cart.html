@@ -1,11 +1,9 @@
-{#
 {% extends "layout.html" %}
 {% block title %}
 {{ data.title }}
 {% endblock %}
 {% block main %}
-#}
-<div class="container" data-apos-ajax-context="cart">
+<div class="container">
   <div class="row">
     <h2>{{ __('NCE_CART') }}</h2>
   </div>
@@ -29,10 +27,10 @@
                 {% if not data.cart %}
                 <p>{{ __('NCE_CART_EMPTY') }}</p>
                 {% else %}
-              <div><a href="/cart/clear">{{ __('NCE_CLEAR_CART') }}</a></div>
+                <div><a href="/cart/clear">{{ __('NCE_CART_CLEAR') }}</a></div>
                 {% endif %}
                 {% for p in data.cart %}
-                <li class="list-group-item">
+                <li class="list-group-item" id="{{p.product_data._id}}">
                   <h4><a href="{{ p.product_data._url }}">{{ p.product_data.title }}</a></h4>
                   <ul class="list-group">
                     <li class="list-group-item">{{ __('NCE_QUATITY') }}: <span>{{p.amount}}</span></li>
@@ -40,7 +38,7 @@
                     <li class="list-group-item">{{ __('NCE_DISCOUNT') }}: <span>{{p.product_data.discount}}</span></li>
                     <li class="list-group-item">{{ __('NCE-SUBTOTAL') }}: <span>{{p.product_data.total*p.amount | round(2)}}</span></li>
                   </ul>
-                  <button id="deleteFromCart" class="btn btn-info" type="button" name="button" onclick="deleteFromCart('{{p.product_data._id}}')">{{ __('NCE_REMOVE') }}</button>
+                  <button id="delete" class="btn btn-info" type="button" name="button" onclick="deleteFromCart('{{p.product_data._id}}');">{{ __('NCE_REMOVE') }}</button>
                 </li>
                 {% endfor %}
               </ul>
@@ -62,6 +60,4 @@
     </div>
   </div>
 </div>
-{#
 {% endblock %}
-#}
