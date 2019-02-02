@@ -7,6 +7,15 @@
     "nunjucks-date-filter": "^0.1.1",
     "request": "^2.88.0"
   },
+  "devDependencies": {
+    "eslint": "^4.0.0",
+    "eslint-config-apostrophe": "^2.0.2",
+    "eslint-config-standard": "^11.0.0",
+    "eslint-plugin-import": "^2.13.0",
+    "eslint-plugin-node": "^6.0.1",
+    "eslint-plugin-promise": "^3.8.0",
+    "eslint-plugin-standard": "^3.1.0"
+  },
   "description": "E-commerce module for apostrophe cms",
   "main": "index.js",
   "scripts": {

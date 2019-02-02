@@ -4,7 +4,7 @@
 {% block main %}
 <div class="container">
   <div class="card mt-4">
-            <img class="card-img-top img-fluid" src="http://placehold.it/900x400" alt="">
+            {{ apos.singleton(data.piece, 'image', 'apostrophe-images') }}
             <div class="card-body">
               <h3 class="card-title">{{ data.piece.title }}</h3>
               <h4><del class="badge badge-danger">${{data.piece.price}}</del>${{data.piece.total}}</h4>
@@ -19,7 +19,9 @@
                   )
                 }}
               </p>
-              <select id="quantity">
+              <form id="addToCart" class="addToCart">
+                <input type="hidden" name="productId" value="{{data.piece._id}}">
+              <select id="quantity" name="quantity">
                 <option value="1">1</option>
                 <option value="2">2</option>
                 <option value="3">3</option>
@@ -31,7 +33,9 @@
                 <option value="9">9</option>
                 <option value="10">10+</option>
               </select>
-              <button id="cart" type="button" name="button" class="btn btn-success" product="{{data.piece._id}}"> Add to cart</button>
+              <input type="submit" value="Add to cart"<>
+              <div class="addToCart thank-you" style="display: hidden;">Aggiunto</div>
+              </form>
               <br>
               <span class="text-warning">{{data.piece.brand}}</span>
               4.0 stars
@@ -39,12 +43,13 @@
                 <br>
                 <nav>
                   <a type="button" name="button" href="/cart" class="btn btn-info"> Cart </a>
-                  <a type="button" name="button" href="/catalog" class="btn btn-info"> Back to catalog </a>
+                  <a type="button" name="button" href="/ }}" class="btn btn-info"> Back to catalog </a>
                 </nav>
               </div>
             </div>
           </div>
           <!-- /.card -->
+          <!--
           <div class="card card-outline-secondary my-4">
             <div class="card-header">
               Product Reviews
@@ -60,6 +65,7 @@
               <small class="text-muted">Posted by Anonymous on 3/1/17</small>
             </div>
           </div>
+          -->
 <!-- /.card -->
 </div>
 {% endblock %}

@@ -1,0 +1,67 @@
+{#
+{% extends "layout.html" %}
+{% block title %}
+{{ data.title }}
+{% endblock %}
+{% block main %}
+#}
+<div class="container" data-apos-ajax-context="cart">
+  <div class="row">
+    <h2>{{ __('NCE_CART') }}</h2>
+  </div>
+  <div class="row text-justified" id="cart-products">
+    <div class="col-12">
+      <div class="card h-100">
+        <div class="card-header text-left">
+          <div class="row">
+            <div class="col">
+              {{ __('NCE_CURRENT_CART') }}
+            </div>
+            <div class="col text-right">
+              {{ piece.createdAt | date("DD/MM/YYYY") }}
+            </div>
+          </div>
+        </div>
+        <div class="card-body text-left">
+          <div class="row">
+            <div class="col-8">
+              <ul class="list-group list-group-flush">
+                {% if not data.cart %}
+                <p>{{ __('NCE_CART_EMPTY') }}</p>
+                {% else %}
+              <div><a href="/cart/clear">{{ __('NCE_CLEAR_CART') }}</a></div>
+                {% endif %}
+                {% for p in data.cart %}
+                <li class="list-group-item">
+                  <h4><a href="{{ p.product_data._url }}">{{ p.product_data.title }}</a></h4>
+                  <ul class="list-group">
+                    <li class="list-group-item">{{ __('NCE_QUATITY') }}: <span>{{p.amount}}</span></li>
+                    <li class="list-group-item">{{ __('NCE_PRICE') }}: <span>{{p.product_data.price}}</span></li>
+                    <li class="list-group-item">{{ __('NCE_DISCOUNT') }}: <span>{{p.product_data.discount}}</span></li>
+                    <li class="list-group-item">{{ __('NCE-SUBTOTAL') }}: <span>{{p.product_data.total*p.amount | round(2)}}</span></li>
+                  </ul>
+                  <button id="deleteFromCart" class="btn btn-info" type="button" name="button" onclick="deleteFromCart('{{p.product_data._id}}')">{{ __('NCE_REMOVE') }}</button>
+                </li>
+                {% endfor %}
+              </ul>
+            </div>
+            <div class="col-4">
+              {% if data.pay.total %}
+              <ul class="list-group">
+                <li class="list-group-item alert alert-info">{{ __('NCE_DISCOUNT') }}: ${{data.pay.discount}}</li>
+                <li class="list-group-item alert alert-info">{{ __('NCE_TOTAL_PAY') }}: ${{data.pay.total}}</li>
+                <li class="list-group-item alert alert-info">
+                  <a href="/purchase-paypal" class="btn btn-primary">{{ __('NCE_PAY_PAYPAL') }}</a>
+                </li>
+              </ul>
+              {% endif %}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{#
+{% endblock %}
+#}
