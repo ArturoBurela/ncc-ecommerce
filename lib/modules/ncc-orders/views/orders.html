@@ -1,0 +1,12 @@
+{% extends "layout.html" %}
+{% block title %}
+{{ data.title }}
+{% endblock %}
+{% block main %}
+  {% for order in data.orders %}
+    {{ order.userId }} {{ order.paymentId }} {{ order.paymentState }} {{ order.totalPay }} <br>
+    {% for item in order.items %}
+      {{ item.sku }} {{ item.quantity }} {{ item.price }}
+    {% endfor %}
+  {% endfor %}
+{% endblock %}

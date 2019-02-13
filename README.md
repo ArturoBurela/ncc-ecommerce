@@ -30,6 +30,7 @@ modules: {
   // Other modules
   // .....
 
+  // ecommerce
   'apostrophe-admin-bar': {
     addGroups: [
       {
@@ -42,19 +43,14 @@ modules: {
       }
     ]
   },
-  'ncc-ecommerce': {},
+  'ncc-global': {},
   'ncc-category': {},
   'ncc-subcategory': {},
   'ncc-subcategory-widgets': {},
   'ncc-product': {},
   'ncc-products-pages': {},
-  'ncc-ecommerce-page': {},
   'ncc-cart': {},
-//  'ncc-paypal': {},
-  'ncc-payment': {},
-  'ncc-product-payment': {},
-  'ncc-payments-pages': {},
-//  'ncc-ecommerce-widgets': {},
+  'ncc-orders': {},
   'apostrophe-pages': {
     // We must list `ncc-ecommerce-page` as one of the available page types
     types: [
@@ -86,6 +82,30 @@ modules: {
     }
   }) }}
 ```
+
+### Use Paypal
+```
+// in app.js add the module
+  'ncc-paypal': {
+    mode: process.env.PAYPAL_MODE, // sandbox or live
+    secret: process.env.PAYPAL_SECRET,
+    clientID: process.env.PAYPAL_CLIENTID,
+    cancelUrl: process.env.PAYPAL_CANCEL_URL,
+    returnUrl: process.env.PAYPAL_RETURN_URL
+  },
+```
+You must export the variable in your env, example:
+```
+export PAYPAL_MODE=sandbox
+export PAYPAL_SECRET=MYSECRET
+export PAYPAL_CLIENTID=MYCLIENTID
+```
+
+### Edit Globals
+As admin set globals varialbes
+
+### User signup
+https://github.com/apostrophecms/apostrophe-signup
 
 ## Contributing
 

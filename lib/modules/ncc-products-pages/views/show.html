@@ -21,19 +21,12 @@
               </p>
               <form id="addToCart" class="addToCart">
                 <input type="hidden" name="productId" value="{{data.piece._id}}">
-              <select id="quantity" name="quantity">
-                <option value="1">1</option>
-                <option value="2">2</option>
-                <option value="3">3</option>
-                <option value="4">4</option>
-                <option value="5">5</option>
-                <option value="6">6</option>
-                <option value="7">7</option>
-                <option value="8">8</option>
-                <option value="9">9</option>
-                <option value="10">10+</option>
-              </select>
-              <input type="submit" value="Add to cart"<>
+                <div class="quantityInput" min="0" max="32">
+                  <input type="text" class="quantity" name="quantity">
+                  <input type="button" value="+" class="quantityPlus">
+                  <input type="button" value="-" class="quantityMinus">
+                </div>
+              <input type="submit" value="Add to cart">
               <div class="addToCart thankYou" style="display: none;">Aggiunto</div>
               </form>
               <br>
