@@ -17,6 +17,7 @@ The `ncc-ecommerce-widgets` module provides an `apostrophe-blog` widget, which y
 ### Prerequisites
 
 A working Apostrophe CMS project.
+Install apostrophe-headless (for pos): `npm install apostrophe-headless
 
 ### Use and Configuration
 
@@ -31,6 +32,7 @@ modules: {
   // .....
 
   // ecommerce
+  'apostrophe-headless': {},
   'apostrophe-admin-bar': {
     addGroups: [
       {
@@ -90,8 +92,6 @@ modules: {
     mode: process.env.PAYPAL_MODE, // sandbox or live
     secret: process.env.PAYPAL_SECRET,
     clientID: process.env.PAYPAL_CLIENTID,
-    cancelUrl: process.env.PAYPAL_CANCEL_URL,
-    returnUrl: process.env.PAYPAL_RETURN_URL
   },
 ```
 You must export the variable in your env, example:

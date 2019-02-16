@@ -36,7 +36,7 @@
         <h4 class="card-title">
           <a href="{{ piece._url }}">{{ piece.title }}</a>
         </h4>
-        <h5><del class="badge badge-danger">${{piece.price}}</del>${{piece.total}}</h5>
+        <h5>{% if piece.discount %}<del class="badge badge-danger">{{ data.global.currency }}{{piece.price}}</del>{% endif %}{{ data.global.currency }}{{piece.total}}</h5>
         <p class="card-text">
           {{
             apos.area(

@@ -5,10 +5,10 @@
     "node": ">=8.11.3"
   },
   "dependencies": {
-    "async": "^2.6.1",
+    "@paypal/checkout-server-sdk": "^1.0.0",
+    "async": "^2.6.2",
     "nunjucks": "^3.1.7",
     "nunjucks-date-filter": "^0.1.1",
-    "paypal-rest-sdk": "^1.8.1",
     "request": "^2.88.0"
   },
   "devDependencies": {

@@ -1,8 +1,5 @@
 {
-  "extends": [
-    "apostrophe",
-    "tidy"
-  ],
+  "extends": "apostrophe",
   "rules": {
     "indent": [
       "error",

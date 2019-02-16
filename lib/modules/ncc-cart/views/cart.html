@@ -2,6 +2,11 @@
 {% block title %}
 {{ data.title }}
 {% endblock %}
+{% block extraHead %}
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <script src="{{ data.global.paypalClientUrl }}"></script>
+{% endblock %}
+
 {% block main %}
 <div class="container">
   <div class="row">
@@ -46,11 +51,9 @@
             <div class="col-4">
               {% if data.pay.total %}
               <ul class="list-group">
-                <li class="list-group-item alert alert-info">{{ __('NCE_DISCOUNT') }}: {{ data.global.currency | json }}{{data.pay.discount}}</li>
-                <li class="list-group-item alert alert-info">{{ __('NCE_TOTAL_PAY') }}: {{ data.global.currency | json }}{{data.pay.total}}</li>
-                <li class="list-group-item alert alert-info">
-                  <a href="/paypal/purchase" class="btn btn-primary">{{ __('NCE_PAY_PAYPAL') }}</a>
-                </li>
+                <li class="list-group-item alert alert-info">{{ __('NCE_DISCOUNT') }}: {{ data.global.currency }}{{data.pay.discount}}</li>
+                <li class="list-group-item alert alert-info">{{ __('NCE_TOTAL_PAY') }}: {{ data.global.currency }}{{data.pay.total}}</li>
+                <div id="paypal-button-container"></div>
               </ul>
               {% endif %}
             </div>
@@ -61,3 +64,38 @@
   </div>
 </div>
 {% endblock %}
+{% block afterMain %}
+<script>
+  paypal.Buttons({
+    createOrder: function(data, actions) {
+      return actions.order.create({
+        purchase_units: [{
+          amount: {
+            value: '{{ data.pay.total }}',
+            currency: '{{ data.global.currencyPaypal }}'
+          }
+        }]
+      });
+    },
+    onApprove: function(data, actions) {
+      return actions.order.capture().then(function(details) {
+        //alert('Transaction completed by ' + details.payer.name.given_name);
+        // Call your server to save the transaction
+        $.post('/paypal/complete', data, function(result) {
+          if (result.success === true) {
+            window.location.href = '/';
+          }
+        });
+        return fetch('/paypal/complete', {
+          method: 'post',
+          body: JSON.stringify({
+            orderID: data.orderID
+          })
+        });
+      });
+
+    }
+  }).render('#paypal-button-container');
+</script>
+{% endblock %}
+
