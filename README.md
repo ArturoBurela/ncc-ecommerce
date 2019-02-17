@@ -17,7 +17,7 @@ The `ncc-ecommerce-widgets` module provides an `apostrophe-blog` widget, which y
 ### Prerequisites
 
 A working Apostrophe CMS project.
-Install apostrophe-headless (for pos): `npm install apostrophe-headless
+Install apostrophe-headless (for pos): `npm install apostrophe-headless`
 
 ### Use and Configuration
 
@@ -118,6 +118,7 @@ We use [SemVer](http://semver.org/) for versioning. For the versions available, 
 ## Authors
 
 * **Arturo Burela** - *Initial work* - [NoteCode Company](http://notecode.mx/)
+* **Andrea Di Mario** - *Contributor* - [Github Profile](https://github.com/anddimario)
 
 See also the list of [contributors](https://github.com/ArturoBurela/ncc-ecommerce/contributors) who participated in this project.
 
