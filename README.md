@@ -1,18 +1,6 @@
 # nnc-ecommerce
 
-This bundle provides e-commerce functionality within [Apostrophe CMS](http://apostrophenow.org).
-
-The bundle consists of three modules:
-
-* `ncc-ecommerce`
-* `ncc-ecommerce-pages`
-* `ncc-ecommerce-widgets`
-
-The `ncc-ecommerce` module provides the ability to create and edit products.
-
-The `ncc-ecommerce-pages` module displays products on a page.
-
-The `ncc-ecommerce-widgets` module provides an `apostrophe-blog` widget, which you can use to make products appear anywhere on your site.
+This bundle provides e-commerce functionality within [Apostrophe CMS](http://apostrophecms.org).
 
 ### Prerequisites
 
@@ -21,7 +9,7 @@ Install apostrophe-headless (for pos): `npm install apostrophe-headless`
 
 ### Use and Configuration
 
-Declare and configure modules
+- Declare and configure modules (this configuration is for all modules, you can choose which module you want)
 
 ```
 // in app.js
@@ -42,7 +30,15 @@ modules: {
           'ncc-subcategory',
           'ncc-product',
         ]
+      },
+      {
+        label: 'Orders',
+        items: [
+          'ncc-orders',
+          'ncc-pos',
+        ]
       }
+
     ]
   },
   'ncc-global': {},
@@ -53,6 +49,7 @@ modules: {
   'ncc-products-pages': {},
   'ncc-cart': {},
   'ncc-orders': {},
+  'ncc-pos': {},
   'apostrophe-pages': {
     // We must list `ncc-ecommerce-page` as one of the available page types
     types: [
@@ -73,6 +70,7 @@ modules: {
 
 }
 ```
+- As admin set globals varialbes
 
 ### Add subcategory menu widget
 ```
@@ -101,11 +99,10 @@ export PAYPAL_SECRET=MYSECRET
 export PAYPAL_CLIENTID=MYCLIENTID
 ```
 
-### Edit Globals
-As admin set globals varialbes
+### Useful
+- User signup: https://github.com/apostrophecms/apostrophe-signup
+- Manage users: https://apostrophecms.org/docs/tutorials/intermediate/permissions.html
 
-### User signup
-https://github.com/apostrophecms/apostrophe-signup
 
 ## Contributing
 

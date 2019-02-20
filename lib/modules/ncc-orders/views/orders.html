@@ -3,6 +3,12 @@
 {{ data.title }}
 {% endblock %}
 {% block main %}
+{% if data.user._permissions.admin %}
+Search
+<input type="name" name="email" placeholder="User email">
+<input type="name" name="date" placeholder="Date">
+<br>
+{% endif %}
   {% for order in data.orders %}
     {{ order.userId }} {{ order.paymentId }} {{ order.paymentState }} {{ order.totalPay }} <br>
     {% for item in order.items %}
