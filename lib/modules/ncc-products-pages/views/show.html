@@ -20,6 +20,7 @@
                   )
                 }}
               </p>
+              {% if data.piece.quantity > 0 %}
               <form id="addToCart" class="addToCart">
                 <input type="hidden" name="productId" value="{{data.piece._id}}">
                 <div class="quantityInput" min="0" max="32">
@@ -30,6 +31,9 @@
               <input type="submit" value="Add to cart">
               <div class="addToCart thankYou" style="display: none;">Aggiunto</div>
               </form>
+              {% else %}
+              not available
+              {% endif %}
               <br>
               <span class="text-warning">{{data.piece.brand}}</span><br>
               {% if data.piece.rating %}

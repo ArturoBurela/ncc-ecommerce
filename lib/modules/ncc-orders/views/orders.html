@@ -3,16 +3,14 @@
 {{ data.title }}
 {% endblock %}
 {% block main %}
-{% if data.user._permissions.admin %}
-Search
-<input type="name" name="email" placeholder="User email">
-<input type="name" name="date" placeholder="Date">
-<br>
-{% endif %}
   {% for order in data.orders %}
-    {{ order.userId }} {{ order.paymentId }} {{ order.paymentState }} {{ order.totalPay }} <br>
+    Orders from {{ order._user.username}}
+    {{ order.method }} {{ order.amount }} {{ order.extras }} <br>
+    Items: <br>
     {% for item in order.items %}
-      {{ item.sku }} {{ item.quantity }} {{ item.price }}
+      <a href="/products/{{ item._product.slug }}">{{ item._product.title }}</a> {{ item.quantity }} {{ item.price }}<br>
     {% endfor %}
+
+    <hr>
   {% endfor %}
 {% endblock %}

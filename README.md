@@ -24,21 +24,14 @@ modules: {
   'apostrophe-admin-bar': {
     addGroups: [
       {
-        label: 'Products',
+        label: 'Ecommerce',
         items: [
           'ncc-category',
           'ncc-subcategory',
           'ncc-product',
+          'ncc-orders',
         ]
       },
-      {
-        label: 'Orders',
-        items: [
-          'ncc-orders',
-          'ncc-pos',
-        ]
-      }
-
     ]
   },
   'ncc-global': {},
