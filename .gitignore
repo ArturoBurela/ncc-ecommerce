@@ -57,3 +57,8 @@ typings/
 # dotenv environment variables file
 .env
 
+# Others
+.idea
+info
+*.geany
+.vscode

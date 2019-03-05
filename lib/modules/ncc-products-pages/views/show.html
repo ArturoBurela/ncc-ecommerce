@@ -4,10 +4,11 @@
 {% block main %}
 <div class="container">
   <div class="card mt-4">
-            <img class="card-img-top img-fluid" src="http://placehold.it/900x400" alt="">
+            {{ apos.singleton(data.piece, 'image', 'apostrophe-images') }}
             <div class="card-body">
               <h3 class="card-title">{{ data.piece.title }}</h3>
-              <h4><del class="badge badge-danger">${{data.piece.price}}</del>${{data.piece.total}}</h4>
+              <h4>Available {{ data.piece.quantity }}</h4>
+              <h4>{% if data.piece.discount %}<del class="badge badge-danger">{{ data.global.currency }}{{data.piece.price}}</del>{% endif %}{{ data.global.currency }}{{data.piece.total}}</h4>
               <p class="card-text">
                 {{
                   apos.area(
@@ -19,27 +20,40 @@
                   )
                 }}
               </p>
-              <select id="quantity">
-                <option value="1">1</option>
-                <option value="2">2</option>
-                <option value="3">3</option>
-                <option value="4">4</option>
-                <option value="5">5</option>
-                <option value="6">6</option>
-                <option value="7">7</option>
-                <option value="8">8</option>
-                <option value="9">9</option>
-                <option value="10">10+</option>
-              </select>
-              <button id="cart" type="button" name="button" class="btn btn-success" product="{{data.piece._id}}"> Add to cart</button>
+              {% if data.piece.quantity > 0 %}
+              <form id="addToCart" class="addToCart">
+                <input type="hidden" name="productId" value="{{data.piece._id}}">
+                <div class="quantityInput" min="0" max="32">
+                  <input type="text" class="quantity" name="quantity">
+                  <input type="button" value="+" class="quantityPlus">
+                  <input type="button" value="-" class="quantityMinus">
+                </div>
+              <input type="submit" value="Add to cart">
+              <div class="addToCart thankYou" style="display: none;">Aggiunto</div>
+              </form>
+              {% else %}
+              not available
+              {% endif %}
               <br>
-              <span class="text-warning">{{data.piece.brand}}</span>
-              4.0 stars
+              <span class="text-warning">{{data.piece.brand}}</span><br>
+              {% if data.piece.rating %}
+                {{ data.piece.rating }} stars
+              {% endif %}
+              <form id="addRating" class="addRating">
+                <input type="hidden" name="productId" id="productId" value="{{ data.piece._id }}">
+                <select name="rating" id="rating">
+                  {% for i in range(1, 6) -%}
+                    <option value="{{ i }}">{{ i }}</option>
+                  {%- endfor %}
+                </select>
+                <input type="submit" value="Add your rating">
+                <div class="addRating thankYou" style="display: none;">Thanks</div>
+              </form>
               <div>
                 <br>
                 <nav>
                   <a type="button" name="button" href="/cart" class="btn btn-info"> Cart </a>
-                  <a type="button" name="button" href="/catalog" class="btn btn-info"> Back to catalog </a>
+                  <a type="button" name="button" href="/ }}" class="btn btn-info"> Back to catalog </a>
                 </nav>
               </div>
             </div>
@@ -50,15 +64,20 @@
               Product Reviews
             </div>
             <div class="card-body">
-              <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Omnis et enim aperiam inventore, similique necessitatibus neque non! Doloribus, modi sapiente laboriosam aperiam fugiat laborum. Sequi mollitia, necessitatibus quae sint natus.</p>
-              <small class="text-muted">Posted by Anonymous on 3/1/17</small>
+              {% for review in data.piece.reviews %}
+              <p>{{ review.text }}</p>
+              <small class="text-muted">Posted by {{ review.user }}</small>
               <hr>
-              <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Omnis et enim aperiam inventore, similique necessitatibus neque non! Doloribus, modi sapiente laboriosam aperiam fugiat laborum. Sequi mollitia, necessitatibus quae sint natus.</p>
-              <small class="text-muted">Posted by Anonymous on 3/1/17</small>
-              <hr>
-              <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Omnis et enim aperiam inventore, similique necessitatibus neque non! Doloribus, modi sapiente laboriosam aperiam fugiat laborum. Sequi mollitia, necessitatibus quae sint natus.</p>
-              <small class="text-muted">Posted by Anonymous on 3/1/17</small>
+              {% endfor %}
             </div>
+          </div>
+          <div class="card add-review">
+            <form id="addReview" class="addReview">
+              <input type="hidden" name="productId" id="productId" value="{{ data.piece._id }}">
+              <textarea name="review" id="review" placeholder="Write a review"></textarea>
+              <input type="submit" value="Add the review">
+              <div class="addReview thankYou" style="display: none;">Thanks</div>
+            </form>
           </div>
 <!-- /.card -->
 </div>

@@ -1,41 +1,54 @@
 # nnc-ecommerce
 
-This bundle provides e-commerce functionality within [Apostrophe CMS](http://apostrophenow.org).
-
-The bundle consists of three modules:
-
-* `ncc-ecommerce`
-* `ncc-ecommerce-pages`
-* `ncc-ecommerce-widgets`
-
-The `ncc-ecommerce` module provides the ability to create and edit products.
-
-The `ncc-ecommerce-pages` module displays products on a page.
-
-The `ncc-ecommerce-widgets` module provides an `apostrophe-blog` widget, which you can use to make products appear anywhere on your site.
+This bundle provides e-commerce functionality within [Apostrophe CMS](http://apostrophecms.org).
 
 ### Prerequisites
 
 A working Apostrophe CMS project.
+Install apostrophe-headless (for pos): `npm install apostrophe-headless`
 
 ### Use and Configuration
 
-Declare and configure modules
+- Declare and configure modules (this configuration is for all modules, you can choose which module you want)
 
 ```
 // in app.js
 // We must declare the bundle!
 bundles: [ 'ncc-ecommerce' ],
 modules: {
-  'ncc-ecommerce': {},
-  'ncc-ecommerce-pages': {},
-  'ncc-ecommerce-widgets': {},
+  // Other modules
+  // .....
+
+  // ecommerce
+  'apostrophe-headless': {},
+  'apostrophe-admin-bar': {
+    addGroups: [
+      {
+        label: 'Ecommerce',
+        items: [
+          'ncc-category',
+          'ncc-subcategory',
+          'ncc-product',
+          'ncc-orders',
+        ]
+      },
+    ]
+  },
+  'ncc-global': {},
+  'ncc-category': {},
+  'ncc-subcategory': {},
+  'ncc-subcategory-widgets': {},
+  'ncc-product': {},
+  'ncc-products-pages': {},
+  'ncc-cart': {},
+  'ncc-orders': {},
+  'ncc-pos': {},
   'apostrophe-pages': {
     // We must list `ncc-ecommerce-page` as one of the available page types
     types: [
       {
-        name: 'ncc-ecommerce-page',
-        label: 'Blog'
+        name: 'ncc-products-pages',
+        label: 'Product'
       },
       {
         name: 'default',
@@ -47,8 +60,42 @@ modules: {
       }
     ]
   }
+
 }
 ```
+- As admin set globals varialbes
+
+### Add subcategory menu widget
+```
+// in home.html, or where you want
+  {# Ecommerce subcategory menu #}
+  {{ apos.area(data.page, 'category', {
+    widgets: {
+      'ncc-subcategory': {}
+    }
+  }) }}
+```
+
+### Use Paypal
+```
+// in app.js add the module
+  'ncc-paypal': {
+    mode: process.env.PAYPAL_MODE, // sandbox or live
+    secret: process.env.PAYPAL_SECRET,
+    clientID: process.env.PAYPAL_CLIENTID,
+  },
+```
+You must export the variable in your env, example:
+```
+export PAYPAL_MODE=sandbox
+export PAYPAL_SECRET=MYSECRET
+export PAYPAL_CLIENTID=MYCLIENTID
+```
+
+### Useful
+- User signup: https://github.com/apostrophecms/apostrophe-signup
+- Manage users: https://apostrophecms.org/docs/tutorials/intermediate/permissions.html
+
 
 ## Contributing
 
@@ -61,6 +108,7 @@ We use [SemVer](http://semver.org/) for versioning. For the versions available, 
 ## Authors
 
 * **Arturo Burela** - *Initial work* - [NoteCode Company](http://notecode.mx/)
+* **Andrea Di Mario** - *Contributor* - [Github Profile](https://github.com/anddimario)
 
 See also the list of [contributors](https://github.com/ArturoBurela/ncc-ecommerce/contributors) who participated in this project.
 

@@ -1,0 +1,16 @@
+{% extends "layout.html" %}
+{% block title %}
+{{ data.title }}
+{% endblock %}
+{% block main %}
+  {% for order in data.orders %}
+    Orders from {{ order._user.username}}
+    {{ order.method }} {{ order.amount }} {{ order.extras }} <br>
+    Items: <br>
+    {% for item in order.items %}
+      <a href="/products/{{ item._product.slug }}">{{ item._product.title }}</a> {{ item.quantity }} {{ item.price }}<br>
+    {% endfor %}
+
+    <hr>
+  {% endfor %}
+{% endblock %}

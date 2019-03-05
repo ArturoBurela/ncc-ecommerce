@@ -1,3 +1,4 @@
+<!--
 <div class="row">
   <a href="{{data.page._url}}" class="current" class="btn btn-info">Reset</a>
 </div>
@@ -19,6 +20,7 @@
     {% endfor %}
   </ul>
 </div>
+-->
 <div class="row">
   <h2>Productos</h2>
 </div>
@@ -26,12 +28,15 @@
   {% for piece in data.pieces %}
   <div class="col-lg-4 col-md-6 mb-4">
     <div class="card h-100">
-      <a href="#"><img class="card-img-top" src="http://placehold.it/700x400" alt=""></a>
+      {% set image = apos.images.first(piece.image) %}
+      {% if image %}
+        <img src="{{ apos.attachments.url(image, { size: 'one-sixth' }) }}" />
+      {% endif %}
       <div class="card-body">
         <h4 class="card-title">
           <a href="{{ piece._url }}">{{ piece.title }}</a>
         </h4>
-        <h5><del class="badge badge-danger">${{piece.price}}</del>${{piece.total}}</h5>
+        <h5>{% if piece.discount %}<del class="badge badge-danger">{{ data.global.currency }}{{piece.price}}</del>{% endif %}{{ data.global.currency }}{{piece.total}}</h5>
         <p class="card-text">
           {{
             apos.area(
