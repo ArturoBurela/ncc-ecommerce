@@ -6,7 +6,7 @@ module.exports = {
   extend: 'apostrophe-module',
 
   moogBundle: {
-    modules: ['ncc-global', 'ncc-product', 'ncc-category', 'ncc-subcategory', 'ncc-subcategory-widgets', 'ncc-products-pages', 'ncc-cart', 'ncc-paypal', 'ncc-orders', 'ncc-pos'],
+    modules: ['ncc-global', 'ncc-product', 'ncc-category', 'ncc-subcategory', 'ncc-subcategory-widgets', 'ncc-products-pages', 'ncc-cart', 'ncc-paypal', 'ncc-orders', 'ncc-pos', 'ncc-emails'],
     directory: 'lib/modules'
   },
 

@@ -2,6 +2,13 @@
 
 This bundle provides e-commerce functionality within [Apostrophe CMS](http://apostrophecms.org).
 
+### Features
+- manage products, categories and subcategories
+- manage orders
+- cart with paypal smart button for checkout
+- single and multiple email
+- pos
+
 ### Prerequisites
 
 A working Apostrophe CMS project.
@@ -9,7 +16,7 @@ Install apostrophe-headless (for pos): `npm install apostrophe-headless`
 
 ### Use and Configuration
 
-- Declare and configure modules (this configuration is for all modules, you can choose which module you want)
+- Declare and configure modules (this configuration is for all modules, you can choose which module you want) **NOTE** Modules' order is important, for example modules that use mail must be added after nodemailer definition
 
 ```
 // in app.js
@@ -41,8 +48,19 @@ modules: {
   'ncc-product': {},
   'ncc-products-pages': {},
   'ncc-cart': {},
-  'ncc-orders': {},
   'ncc-pos': {},
+  'apostrophe-email': {
+    // See the nodemailer documentation, many
+    // different transports are available, this one
+    // matches how PHP does it on Linux servers
+    nodemailer: {
+      sendmail: true,
+      newline: 'unix',
+      path: '/usr/sbin/sendmail'
+    }
+  },
+  'ncc-orders': {},
+  'ncc-emails': {},
   'apostrophe-pages': {
     // We must list `ncc-ecommerce-page` as one of the available page types
     types: [
@@ -59,8 +77,7 @@ modules: {
         label: 'Home'
       }
     ]
-  }
-
+  },
 }
 ```
 - As admin set globals varialbes
@@ -74,6 +91,22 @@ modules: {
       'ncc-subcategory': {}
     }
   }) }}
+```
+
+### Emails
+You can send an email from pieces, or use the method to send mail where you want. It's used nodemailer, so you can configure it how you want, for example with [ses]( https://nodemailer.com/transports/ses/). For tests you can use [Maildev](https://github.com/djfarrelly/MailDev) with this config:
+```
+  'apostrophe-email': {
+    nodemailer: {
+      host: 'localhost',
+      port: 1025,
+      secure: false,
+      tls: {
+        rejectUnauthorized: false
+      }
+    }
+  },
+
 ```
 
 ### Use Paypal
@@ -95,7 +128,6 @@ export PAYPAL_CLIENTID=MYCLIENTID
 ### Useful
 - User signup: https://github.com/apostrophecms/apostrophe-signup
 - Manage users: https://apostrophecms.org/docs/tutorials/intermediate/permissions.html
-
 
 ## Contributing
 
