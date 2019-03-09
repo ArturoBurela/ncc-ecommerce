@@ -7,12 +7,14 @@ This bundle provides e-commerce functionality within [Apostrophe CMS](http://apo
 - manage orders
 - cart with paypal smart button for checkout
 - single and multiple email
+- shippings
+- taxes
 - pos
 
 ### Prerequisites
 
 A working Apostrophe CMS project.
-Install apostrophe-headless (for pos): `npm install apostrophe-headless`
+Install apostrophe-headless (optional for pos): `npm install apostrophe-headless`
 
 ### Use and Configuration
 
@@ -37,6 +39,7 @@ modules: {
           'ncc-subcategory',
           'ncc-product',
           'ncc-orders',
+          'ncc-shippings'
         ]
       },
     ]
@@ -47,6 +50,7 @@ modules: {
   'ncc-subcategory-widgets': {},
   'ncc-product': {},
   'ncc-products-pages': {},
+  'ncc-shippings': {},
   'ncc-cart': {},
   'ncc-pos': {},
   'apostrophe-email': {
@@ -81,6 +85,9 @@ modules: {
 }
 ```
 - As admin set globals varialbes
+
+### Additional routes for user menu
+- `/orders`: get all orders for the logged user
 
 ### Add subcategory menu widget
 ```
@@ -124,6 +131,9 @@ export PAYPAL_MODE=sandbox
 export PAYPAL_SECRET=MYSECRET
 export PAYPAL_CLIENTID=MYCLIENTID
 ```
+
+### Disable selling
+If you want disable selling from cart (for example if you want a showcase), you must remove from app.js the modules: `ncc-paypal` and `ncc-cart` and remove from `lib/modules/ncc-products-pages/views/show.html` the `Add to cart` button.
 
 ### Useful
 - User signup: https://github.com/apostrophecms/apostrophe-signup
