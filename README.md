@@ -39,7 +39,7 @@ modules: {
           'ncc-subcategory',
           'ncc-product',
           'ncc-orders',
-          'ncc-shippings'
+          'ncc-shippings',
         ]
       },
     ]
