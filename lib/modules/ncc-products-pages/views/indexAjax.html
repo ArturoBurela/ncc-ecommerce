@@ -1,28 +1,5 @@
-<!--
 <div class="row">
-  <a href="{{data.page._url}}" class="current" class="btn btn-info">Reset</a>
-</div>
-<div class="row">
-  <h3>Filtro etiquetas</h3>
-  <ul class="tag-filters">
-    {% for tag in data.piecesFilters.tags %}
-    {# HACK to avoid a possible bug #}
-    <li><a href="{{ data._url}}?tags={{tag.value}}" class="btn btn-info">{{ tag.label }}</a></li>
-    {% endfor %}
-  </ul>
-</div>
-<div class="row">
-  <h3>Filtro subcategorías</h3>
-  <ul class="tag-filters">
-    {% for sub in data.piecesFilters.nccsubcategories %}
-    {# HACK to avoid a possible bug #}
-    <li><a href="{{data._url}}?nccsubcategories={{sub.value}}" class="{{ 'btn btn-success' if data.query.nccsubcategories == sub.value }}">{{ sub.label }}</a></li>
-    {% endfor %}
-  </ul>
-</div>
--->
-<div class="row">
-  <h2>Productos</h2>
+  <h2>Prodotti</h2>
 </div>
 <div class="row">
   {% for piece in data.pieces %}

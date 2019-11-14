@@ -10,11 +10,11 @@ This bundle provides e-commerce functionality within [Apostrophe CMS](http://apo
 - shippings
 - taxes
 - pos
+- rating and reviews
 
 ### Prerequisites
 
 A working Apostrophe CMS project.
-Install apostrophe-headless (optional for pos): `npm install apostrophe-headless`
 
 ### Use and Configuration
 
@@ -29,7 +29,6 @@ modules: {
   // .....
 
   // ecommerce
-  'apostrophe-headless': {},
   'apostrophe-admin-bar': {
     addGroups: [
       {
@@ -88,6 +87,7 @@ modules: {
 
 ### Additional routes for user menu
 - `/orders`: get all orders for the logged user
+- `/products`: product list
 
 ### Add subcategory menu widget
 ```
@@ -99,6 +99,7 @@ modules: {
     }
   }) }}
 ```
+**NOTE**: After this you must add a page with `Product` template
 
 ### Emails
 You can send an email from pieces, or use the method to send mail where you want. It's used nodemailer, so you can configure it how you want, for example with [ses]( https://nodemailer.com/transports/ses/). For tests you can use [Maildev](https://github.com/djfarrelly/MailDev) with this config:
