@@ -3,8 +3,12 @@
 {{ data.title }}
 {% endblock %}
 {% block extraHead %}
-  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <script src="{{ data.global.paypalClientUrl }}"></script>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<script src="{{ data.global.paypalClientUrl }}"></script>
+{% endblock %}
+{% block beforeMain %}
+{# rewrite beforeMain to avoid menu widget that have problems in this view #}
+<a type="button" name="button" href="/" class="btn btn-info">Home</a>
 {% endblock %}
 
 {% block main %}
@@ -12,90 +16,81 @@
   <div class="row">
     <h2>{{ __('NCE_CART') }}</h2>
   </div>
-  <div class="row text-justified" id="cart-products">
-    <div class="col-12">
-      <div class="card h-100">
-        <div class="card-header text-left">
-          <div class="row">
-            <div class="col">
-              {{ __('NCE_CURRENT_CART') }}
-            </div>
-            <div class="col text-right">
-              {{ piece.createdAt | date("DD/MM/YYYY") }}
-            </div>
-          </div>
-        </div>
-        <div class="card-body text-left">
-          <div class="row">
-            <div class="col-8">
-              <ul class="list-group list-group-flush">
-                {% if not data.cart %}
-                <p>{{ __('NCE_CART_EMPTY') }}</p>
-                {% else %}
-                <div><a href="/cart/clear">{{ __('NCE_CART_CLEAR') }}</a></div>
-                {% endif %}
-                {% for p in data.cart %}
-                <li class="list-group-item" id="{{p.product_data._id}}">
-                  <h4><a href="{{ p.product_data._url }}">{{ p.product_data.title }}</a></h4>
-                  <ul class="list-group">
-                    <li class="list-group-item">{{ __('NCE_QUATITY') }}: <span>{{p.quantity}}</span></li>
-                    <li class="list-group-item">{{ __('NCE_PRICE') }}: <span>{{p.product_data.price}}</span></li>
-                    <li class="list-group-item">{{ __('NCE_DISCOUNT') }}: <span>{{p.product_data.discount}}</span></li>
-                    <li class="list-group-item">{{ __('NCE-SUBTOTAL') }}: <span>{{p.product_data.total*p.quantity | round(2)}}</span></li>
-                  </ul>
-                  <button id="delete" class="btn btn-info" type="button" name="button" onclick="deleteFromCart('{{p.product_data._id}}');">{{ __('NCE_REMOVE') }}</button>
-                </li>
-                {% endfor %}
-              </ul>
-            </div>
-            <div class="col-4">
-              {% if data.pay.total %}
-              <ul class="list-group">
-                <li class="list-group-item alert alert-info">{{ __('NCE_DISCOUNT') }}: {{ data.global.currency }}{{data.pay.discount}}</li>
-                <li class="list-group-item alert alert-info">{{ __('NCE_TOTAL_PAY') }}: {{ data.global.currency }}{{data.pay.total}}</li>
-                <div id="paypal-button-container"></div>
-              </ul>
-              {% endif %}
-            </div>
-          </div>
-        </div>
-      </div>
+
+  <div class="row" id="cart-products">
+    {% if not data.cart %}
+    <p>{{ __('NCE_CART_EMPTY') }}</p>
+    {% else %}
+    <div class="eight columns">
+      <ul class="list-group list-group-flush">
+        {% for p in data.cart %}
+        <li class="list-group-item" id="{{p.productId}}-{{p.serial}}">
+          <h4><a href="{{ p._url }}">{{ p.title }} - {{ p.combinationName }}</a></h4>
+          <ul class="list-group">
+            <li class="list-group-item">{{ __('NCE_QUATITY') }}: <span>{{p.quantity}}</span></li>
+            <li class="list-group-item">{{ __('NCE_PRICE') }}: <span>{{p.price}}</span></li>
+            {% if p.discount %}
+            <li class="list-group-item">{{ __('NCE_DISCOUNT') }}: <span>{{p.discount}}</span></li>
+            {% endif %}
+            <li class="list-group-item">{{ __('NCE-SUBTOTAL') }}: <span>{{p.total*p.quantity | round(2)}}</span></li>
+          </ul>
+          <button id="delete" class="btn btn-info" type="button" name="button"
+            onclick="deleteFromCart('{{p.productId}}', '{{p.serial}}');">{{ __('NCE_REMOVE') }}</button>
+        </li>
+        {% endfor %}
+        {% endif %}
+
+      </ul>
+    </div>
+    <div class="four columns">
+      {% if data.pay.total %}
+      <div><a href="/cart/clear">{{ __('NCE_CART_CLEAR') }}</a></div>
+      <ul class="list-group">
+        {% if data.pay.discount %}
+        <li class="list-group-item alert alert-info">{{ __('NCE_DISCOUNT') }}:
+          {{ data.global.currency }}{{data.pay.discount}}</li>
+        {% endif %}
+        <li class="list-group-item alert alert-info">{{ __('NCE_TOTAL_PAY') }}:
+          {{ data.global.currency }}{{data.pay.total}}</li>
+        <div id="paypal-button-container"></div>
+      </ul>
+      {% endif %}
     </div>
   </div>
 </div>
 {% endblock %}
 {% block afterMain %}
 <script>
-  paypal.Buttons({
-    createOrder: function(data, actions) {
-      return actions.order.create({
-        purchase_units: [{
-          amount: {
-            value: '{{ data.pay.total }}',
-            currency: '{{ data.global.currencyPaypal }}'
-          }
-        }]
-      });
-    },
-    onApprove: function(data, actions) {
-      return actions.order.capture().then(function(details) {
-        //alert('Transaction completed by ' + details.payer.name.given_name);
-        // Call your server to save the transaction
-        $.post('/paypal/complete', data, function(result) {
-          if (result.success === true) {
-            window.location.href = '/';
-          }
-        });
-        return fetch('/paypal/complete', {
-          method: 'post',
-          body: JSON.stringify({
-            orderID: data.orderID
-          })
-        });
-      });
 
-    }
-  }).render('#paypal-button-container');
+paypal.Buttons({
+  createOrder: function (data, actions) {
+    return actions.order.create({
+      purchase_units: [{
+        amount: {
+          value: '{{ data.pay.total }}',
+          currency: '{{ data.global.currencyPaypal }}'
+        }
+      }]
+    });
+  },
+  onApprove: function (data, actions) {
+    return actions.order.capture().then(function (details) {
+      //alert('Transaction completed by ' + details.payer.name.given_name);
+      // Call your server to save the transaction
+      $.post('/paypal/complete', data, function (result) {
+        if (result.success === true) {
+          window.location.href = '/';
+        }
+      });
+      return fetch('/paypal/complete', {
+        method: 'post',
+        body: JSON.stringify({
+          orderID: data.orderID
+        })
+      });
+    });
+
+  }
+}).render('#paypal-button-container');
 </script>
 {% endblock %}
-

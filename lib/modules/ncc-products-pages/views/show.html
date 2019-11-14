@@ -2,25 +2,23 @@
 {% block title %}{{ data.piece.title }}{% endblock %}
 
 {% block main %}
-           <!-- {{ apos.singleton(data.piece, 'image', 'apostrophe-images') }} -->
-           <div class="container"> 
-              <nav>
-                <a type="button" name="button" href="/cart" class="btn btn-info"> Cart </a>
-                <a type="button" name="button" href="/products" class="btn btn-info"> Back to catalog </a>
-              </nav>
-           <div class="row">
+<!-- {{ apos.singleton(data.piece, 'image', 'apostrophe-images') }} -->
+<div class="container">
+  <div class="row">
     <div class="six columns">
       {% if data.piece.image %}
       {% set image = apos.images.first(data.piece.image) %}
-        <img src="{{ apos.attachments.url(image, { size: 'one-third' }) }}" />
+      <img src="{{ apos.attachments.url(image, { size: 'one-third' }) }}" />
       {% endif %}
     </div>
     <div class="six columns">
-        <h3 class="card-title">{{data.piece.brand}} - {{ data.piece.title }}</h3>
+      <h3 class="card-title">{{data.piece.brand}} - {{ data.piece.title }}</h3>
 
-        <h4>{% if data.piece.discount %}<del class="badge badge-danger">{{ data.global.currency }}{{data.piece.price}}</del>{% endif %}{{ data.global.currency }}{{data.piece.total}}</h4>
-        <p class="card-text">
-          {{
+      <h4>{% if data.piece.discount %}<del
+          class="badge badge-danger">{{ data.global.currency }}{{data.piece.price}}</del>{% endif %}{{ data.global.currency }}{{data.piece.total}}
+      </h4>
+      <p class="card-text">
+        {{
             apos.area(
               data.piece,
               'description',
@@ -29,83 +27,87 @@
               }
             )
           }}
-        </p>
-        <select id="selectedCombination">
-          {% for combination in data.piece.combinations %}
-            {% if combination.quantity > 0 %}
-                <option value="{{ data.piece._id }}-{{ combination.serial }}">{{ combination.name }} - Available {{ combination.quantity }}</option>
-                {% endif %}
-              {% endfor %}
-        </select>
-        <div class="quantityInput" min="0" max="32">
-          <input type="text" class="quantity" name="quantity" id="quantity">
-          <input type="button" value="+" class="quantityPlus">
-          <input type="button" value="-" class="quantityMinus">
+      </p>
+      <select id="selectedCombination">
+        {% for combination in data.piece.combinations %}
+        {% if combination.quantity > 0 %}
+        <option value="{{ data.piece._id }}-{{ combination.serial }}">{{ combination.name }} - Available
+          {{ combination.quantity }}</option>
+        {% endif %}
+        {% endfor %}
+      </select>
 
-        </div>
-        <input type="submit" value="Add to cart" class="addToCart">
-        <!--
-              {% for combination in data.piece.combinations %}
-                <h4>{{ combination.name }} -
-                {% if combination.quantity > 0 %}
-                Available {{ combination.quantity }}</h4>
-                  <div class="quantityInput" min="0" max="32">
-                    <input type="text" class="quantity" name="quantity" id="quantity-{{ combination.serial }}">
-                    <input type="button" value="+" class="quantityPlus" id="{{ combination.serial }}">
-                    <input type="button" value="-" class="quantityMinus" id="{{ combination.serial }}">
+      {# only logged user can see this #}
+      {% if data.user.username %}
+      <div class="quantityInput" min="0" max="32">
+        <input type="text" class="quantity" name="quantity" id="quantity">
+        <input type="button" value="+" class="quantityPlus">
+        <input type="button" value="-" class="quantityMinus">
 
-                  </div>
-                  <input type="submit" value="Add to cart" class="addToCart" id="{{ data.piece._id }}-{{ combination.serial }}">
-                {% else %}
-                not available </h4>
-                {% endif %}
-              {% endfor %}
-        -->
+      </div>
+      <input type="submit" value="Add to cart" class="addToCart">
 
-              <div class="addToCartThankYou" style="display: none;">Aggiunto</div>
-
-</div>
-</div>
+      <div class="addToCartThankYou" style="display: none;">Aggiunto <a type="button" name="button" href="/cart"
+          class="btn btn-info">Cart</a></div>
+      {% else %}
+      You must signup to buy this product
+      {% endif %}
+    </div>
+  </div>
 </div>
 
 <div class="container">
-    <div class="row">
-        <div class="six columns">
-          Ratings
-            {% if data.piece.rating %}
-              {{ data.piece.rating }} stars
-            {% endif %}
-            <form id="addRating" class="addRating">
-              <input type="hidden" name="productId" id="productId" value="{{ data.piece._id }}">
-              <select name="rating" id="rating">
-                {% for i in range(1, 6) -%}
-                  <option value="{{ i }}">{{ i }}</option>
-                {%- endfor %}
-              </select>
-              <input type="submit" value="Add your rating">
-              <div class="addRating thankYou" style="display: none;">Thanks</div>
-            </form>
-        </div>
-<div class="six columns">
-    <div class="card-header">
-      Product Reviews
+  <div class="row">
+    <div class="six columns">
+      Ratings
+      {% if data.piece.rating %}
+      {{ data.piece.rating }} stars
+      {% endif %}
+
+      {# only logged user can see this #}
+      {% if data.user.username %}
+      <form id="addRating" class="addRating">
+        <input type="hidden" name="productId" id="productId" value="{{ data.piece._id }}">
+        <select name="rating" id="rating">
+          {% for i in range(1, 6) -%}
+          <option value="{{ i }}">{{ i }}</option>
+          {%- endfor %}
+        </select>
+        <input type="submit" value="Add your rating">
+        <div class="addRating thankYou" style="display: none;">Thanks</div>
+      </form>
+      {% endif %}
+
     </div>
-    <div class="card-body">
-      {% for review in data.piece.reviews %}
-      <p>{{ review.text }}</p>
-      <small class="text-muted">Posted by {{ review.user }}</small>
-      <hr>
-      {% endfor %}
+    <div class="six columns">
+      <div class="card-header">
+        Product Reviews
+      </div>
+      {% if data.piece.reviews %}
+      <div class="card-body">
+        {% for review in data.piece.reviews %}
+        <p>{{ review.text }}</p>
+        <small class="text-muted">Posted by {{ review.user }}</small>
+        <hr>
+        {% endfor %}
+      </div>
+      {% else %}
+      No reviews yet
+      {% endif %}
     </div>
+
+    {# only logged user can see this #}
+    {% if data.user.username %}
+    <div class="card add-review">
+      <form id="addReview" class="addReview">
+        <input type="hidden" name="productId" id="productId" value="{{ data.piece._id }}">
+        <textarea name="review" id="review" placeholder="Write a review"></textarea>
+        <input type="submit" value="Add the review">
+        <div class="addReview thankYou" style="display: none;">Thanks</div>
+      </form>
+    </div>
+    {% endif %}
+
   </div>
-  <div class="card add-review">
-    <form id="addReview" class="addReview">
-      <input type="hidden" name="productId" id="productId" value="{{ data.piece._id }}">
-      <textarea name="review" id="review" placeholder="Write a review"></textarea>
-      <input type="submit" value="Add the review">
-      <div class="addReview thankYou" style="display: none;">Thanks</div>
-    </form>
-  </div>
-</div>
 </div>
 {% endblock %}

@@ -2,6 +2,10 @@
 {% block title %}
 {{ data.title }}
 {% endblock %}
+{% block beforeMain %}
+{# rewrite beforeMain to avoid menu widget that have problems in this view #}
+<a type="button" name="button" href="/" class="btn btn-info">Home</a>
+{% endblock %}
 {% block main %}
   {% for order in data.orders %}
     Orders from {{ order._user.username}}

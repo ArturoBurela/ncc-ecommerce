@@ -91,7 +91,7 @@ modules: {
 
 ### Add subcategory menu widget
 ```
-// in home.html, or where you want
+// in views/layout.html, or where you want
   {# Ecommerce subcategory menu #}
   {{ apos.area(data.page, 'category', {
     widgets: {
@@ -118,6 +118,7 @@ You can send an email from pieces, or use the method to send mail where you want
 ```
 
 ### Use Paypal
+With [Paypal smart button](https://developer.paypal.com/docs/checkout/)
 ```
 // in app.js add the module
   'ncc-paypal': {
@@ -132,6 +133,7 @@ export PAYPAL_MODE=sandbox
 export PAYPAL_SECRET=MYSECRET
 export PAYPAL_CLIENTID=MYCLIENTID
 ```
+Then configure script location as `Global` variable.
 
 ### Disable selling
 If you want disable selling from cart (for example if you want a showcase), you must remove from app.js the modules: `ncc-paypal` and `ncc-cart` and remove from `lib/modules/ncc-products-pages/views/show.html` the `Add to cart` button.

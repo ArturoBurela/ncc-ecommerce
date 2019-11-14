@@ -10,7 +10,10 @@ POS
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
   <script src="https://printjs-4de6.kxcdn.com/print.min.js"></script>
 {% endblock %}
-
+{% block beforeMain %}
+{# rewrite beforeMain to avoid menu widget that have problems in this view #}
+<a type="button" name="button" href="/" class="btn btn-info">Home</a>
+{% endblock %}
 {% block main %}
   <div class="container">
     <div class="errorOrder"></div>
