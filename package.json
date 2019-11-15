@@ -6,8 +6,8 @@
   },
   "dependencies": {
     "@paypal/checkout-server-sdk": "^1.0.1",
-    "bluebird": "^3.7.1",
     "moment-recur": "github:anddimario/moment-recur",
+    "bluebird": "^3.7.1",
     "nunjucks": "^3.2.0",
     "nunjucks-date-filter": "^0.1.1",
     "request": "^2.88.0"
@@ -39,7 +39,7 @@
     "notecode"
   ],
   "author": "Note Code Company, Arturo Burela",
-  "license": "ISC",
+  "license": "MIT",
   "bugs": {
     "url": "https://github.com/ArturoBurela/ncc-ecommerce/issues"
   },

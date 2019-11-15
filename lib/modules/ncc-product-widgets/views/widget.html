@@ -1,0 +1,9 @@
+{% for piece in data.widget._pieces %}
+<h4>
+  {% if piece.image %}
+  {% set image = apos.images.first(piece.image) %}
+  <img src="{{ apos.attachments.url(image, { size: 'one-third' }) }}" />
+  {% endif %}
+  {{ piece.title }} - <a href="{{ piece._url }}">{{ piece.title }} </a>
+</h4>
+{% endfor %}
